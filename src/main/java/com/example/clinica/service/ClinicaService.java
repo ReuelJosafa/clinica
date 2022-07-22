@@ -2,24 +2,12 @@ package com.example.clinica.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import com.example.clinica.dto.ClinicaDto;
 
-import com.example.clinica.model.Clinica;
-import com.example.clinica.repository.ClinicaRepository;
+public interface ClinicaService {
+    void addClinica(ClinicaDto clinicaDto);
 
-@Service
-public class ClinicaService {
-    private final ClinicaRepository clinicaRepository;
+    List<ClinicaDto> fetchClinicas();
 
-    public ClinicaService(ClinicaRepository clinicaRepository) {
-        this.clinicaRepository = clinicaRepository;
-    }
-
-    public List<Clinica> fetchClinicas() {
-        return clinicaRepository.findAll();
-    }
-
-    public void addClinica(Clinica clinica) {
-        clinicaRepository.save(clinica);
-    }
+    List<ClinicaDto> getClinicaByDentistaId(Long dentistaId);
 }

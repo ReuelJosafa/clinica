@@ -1,8 +1,8 @@
 package com.example.clinica.model;
 
-import javax.persistence.*;
+import java.util.List;
 
-// import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
 
 import lombok.*;
 
@@ -16,13 +16,11 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_paciente")
-    // @JsonProperty("id_paciente")
     private Long id;
-    // @JsonProperty("nome")
     private String nome;
 
-    @OneToOne(mappedBy = "paciente")
-    private Agenda agenda;
+    @OneToMany(mappedBy = "paciente")
+    private List<Agenda> agenda;
 
     @Override
     public String toString() {

@@ -1,12 +1,8 @@
 package com.example.clinica.model;
 
-
 import javax.persistence.*;
 
-// import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
-
 
 @Entity
 @Table(name = "tbl_dentista")
@@ -14,17 +10,15 @@ public class Dentista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dentista")
-    // @JsonProperty("id_dentista")
     private Long id;
-    // @JsonProperty("email")
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "dentista_clinicas", joinColumns = @JoinColumn(name = "id_dentista"), inverseJoinColumns = @JoinColumn(name = "cnpj"))
     List<Clinica> clinicas;
 
-    @OneToOne(mappedBy = "dentista")
-    private Agenda agenda;
+    @OneToMany(mappedBy = "dentista")
+    private List<Agenda> agenda;
 
     public Dentista(Long id, String email) {
         this.id = id;
@@ -41,7 +35,6 @@ public class Dentista {
         this.id = id;
         this.email = email;
         this.clinicas = clinicas;
-        this.agenda = agenda;
     }
 
     public Dentista() {
@@ -49,7 +42,7 @@ public class Dentista {
 
     @Override
     public String toString() {
-        return "Dentista [agenda=" + agenda + ", clinicas=" + clinicas + ", email=" + email + ", id=" + id + "]";
+        return "Dentista [clinicas=" + clinicas + ", email=" + email + ", id=" + id + "]";
     }
 
     public Long getId() {
@@ -74,14 +67,6 @@ public class Dentista {
 
     public void setClinicas(List<Clinica> clinicas) {
         this.clinicas = clinicas;
-    }
-
-    public Agenda getAgenda() {
-        return agenda;
-    }
-
-    public void setAgenda(Agenda agenda) {
-        this.agenda = agenda;
     }
 
 }
